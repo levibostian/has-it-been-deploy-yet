@@ -25,3 +25,17 @@ jobs:
         node-version-file: '.nvmrc'
     - run: npm ci    
     - run: npm run compile 
+    - run: npm install --no-save 
+
+  run-cli:
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: '.nvmrc'
+    - run: npm ci    
+    - run: npm run compile 
+    - run: npm pack 
+    - run: npm install --no-save is-it-deployed-1.0.0.tgz
+    - run: is-it-deployed --help
