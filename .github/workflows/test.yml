@@ -1,0 +1,27 @@
+
+
+on: 
+  pull_request:
+  push:
+    branches: [main, beta]
+
+jobs:
+  run-tests: 
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: '.nvmrc'
+    - run: npm ci    
+    - run: npm run test
+
+  run-compile:
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: '.nvmrc'
+    - run: npm ci    
+    - run: npm run compile 
