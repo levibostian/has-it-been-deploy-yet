@@ -17,6 +17,7 @@ jobs:
     - run: npm run test
 
   run-compile:
+    name: Expect code to be able to compile successfully 
     runs-on: ubuntu-latest
     steps: 
     - uses: actions/checkout@v4
@@ -25,9 +26,9 @@ jobs:
         node-version-file: '.nvmrc'
     - run: npm ci    
     - run: npm run compile 
-    - run: npm install --no-save 
 
   run-cli:
+    name: Run the CLI, expect no errors 
     runs-on: ubuntu-latest
     steps: 
     - uses: actions/checkout@v4
@@ -38,4 +39,4 @@ jobs:
     - run: npm run compile 
     - run: npm pack 
     - run: npm install --no-save is-it-deployed-1.0.0.tgz
-    - run: is-it-deployed --help
+    - run: node node_modules/.bin/is-it-deployed --package-manager npm --package-name react --package-version 18.0.0
