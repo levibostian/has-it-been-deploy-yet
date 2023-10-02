@@ -17,13 +17,17 @@ jobs:
     - run: npm ci
     - run: npm run compile 
 
+    - name: Get branch name
+      id: branch-name
+      uses: tj-actions/branch-names@v7  
+
     - name: Deploy git tag via semantic-release
       uses: cycjimmy/semantic-release-action@v4
-      with:      
+      with:
         semantic_version: latest 
         branches: |
           [
-            'main',
+            '${{ steps.branch-name.outputs.current_branch }}',
             { name: 'beta', prerelease: true },
             { name: 'alpha', prerelease: true }
           ]
