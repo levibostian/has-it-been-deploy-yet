@@ -46,3 +46,33 @@ To see if a package has been uploaded to the Maven Central repository, use the `
 Here is an example with the CLI:
 
 `npx is-it-deployed --package-manager maven --package-name 'io.customer.android:tracking' --package-version 3.6.6`
+
+# Goals 
+
+This project tries to follow these goals in regards to what it does and doesn't do:
+
+* **Checks the single source of truth**. For example, if a package manager uses a cache that only gets updated every X minutes, this project will bypass the cache and go to the main repository to check if the package has been deployed. For an example of this, see the CocoaPods implementation.
+
+* **Zero dependencies**. This project has the vision of being able to check versions for multiple different package managers. It's not ideal if someone needs to download dependencies for X package manager when they only want to use Y package manager. So far, this project has had good success with performing HTTP requests to the package manager web server/API directly, without needing to download any dependencies.
+
+* **CLI and a module**. We want this project to be flexible so nodejs developers can use it (via module), but also anyone not using node can use it as well (via CLI). 
+
+* **Made for humans and for CIs**. It's important that this project can be used by machines (such as a CI) to programmatically check if a package has been deployed. We currently do this with return values from the module or exit codes from CLI. The pattern used thus far is: Console output is also available for humans to read while return values are for machines. 
+
+### What this project does do: 
+
+* Tells you if a specific version of a specific package has been deployed already to a specific package manager.
+
+### What this project doesn't do:
+
+* Tells you if there is a newer version of a package available. 
+
+# Contributing
+
+### Development 
+
+* `nvm use`
+* `npm install`
+* `npm run test` to run tests. Tests are the easiest way to test features of the project.
+
+
