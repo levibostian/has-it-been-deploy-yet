@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "node module (and CLI) that checks if a specific version of a package has been deployed yet.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": "dist/cli.js",
   "scripts": {
     "test": "npx jest",
-    "compile": "npx tsc --outDir dist"
+    "compile": "npx tsc --outDir dist --declaration"
   },
   "author": "Levi Bostian <levi@curiosityio.com>",
   "license": "MIT",
