@@ -1,0 +1,36 @@
+
+on: 
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to push git tags 
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: '.nvmrc'
+
+    - run: npm ci
+    - run: npm run compile 
+
+    - name: Deploy git tag via semantic-release
+      uses: cycjimmy/semantic-release-action@v4
+      with:      
+        semantic_version: latest 
+        branches: |
+          [
+            'main',
+            { name: 'beta', prerelease: true },
+            { name: 'alpha', prerelease: true }
+          ]
+        extra_plugins: |
+          conventional-changelog-conventionalcommits
+          @semantic-release/github
+          semantic-release-recovery
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_PUSH_TOKEN }}
