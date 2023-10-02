@@ -38,3 +38,11 @@ To see if a package has been uploaded to CocoaPods, use the `cocoapods` package 
 Here is an example with the CLI:
 
 `npx is-it-deployed --package-manager cocoapods --package-name CustomerIO --package-version 2.8.3`
+
+## Maven
+
+To see if a package has been uploaded to the Maven Central repository, use the `maven` package manager with the module or the CLI.
+
+Here is an example with the CLI:
+
+`npx is-it-deployed --package-manager maven --package-name 'io.customer.android:tracking' --package-version 3.6.6`
