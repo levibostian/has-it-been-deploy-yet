@@ -20,3 +20,21 @@ import { isItDeployed } from 'is-it-deployed'
 await isItDeployed({ packageManager: '<package-manager-name>', packageName: '<package-name>', packageVersion: '1.0.0' })
 // returns true if the package has been deployed, false if it hasn't
 ```
+
+# Supported package managers
+
+## npm 
+
+To see if a package has been uploaded to npmjs.com, use the `npm` package manager with the module or the CLI. 
+
+Here is an example with the CLI: 
+
+`npx is-it-deployed --package-manager npm --package-name is-it-deployed --package-version 1.0.0`
+
+## CocoaPods 
+
+To see if a package has been uploaded to CocoaPods, use the `cocoapods` package manager with the module or the CLI.
+
+Here is an example with the CLI:
+
+`npx is-it-deployed --package-manager cocoapods --package-name CustomerIO --package-version 2.8.3`
