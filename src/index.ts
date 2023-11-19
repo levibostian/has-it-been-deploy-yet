@@ -1,16 +1,22 @@
-import { NpmPackageManager } from "./packageManagers/npm";
-import { CocoapodsPackageManager } from "./packageManagers/cocoapods";
-import { MavenPackageManager } from "./packageManagers/maven";
+import { NpmPackageManager } from "./packageManagers/npm.js";
+import { CocoapodsPackageManager } from "./packageManagers/cocoapods.js";
+import { MavenPackageManager } from "./packageManagers/maven.js";
+import { PackageManager } from "./packageManagers";
+import { runCheckIsItDeployed } from "./runner";
 
 export const isItDeployed = (args: { packageManager: 'npm' | 'cocoapods' | 'maven', packageName: string, packageVersion: string }) => {  
+  var packageManager: PackageManager | undefined = undefined
+
   switch (args.packageManager) {
     case 'npm':
-      return NpmPackageManager.doesItExist(args)
+      packageManager = NpmPackageManager
     case 'cocoapods':
-      return CocoapodsPackageManager.doesItExist(args)
+      packageManager = CocoapodsPackageManager
     case 'maven':
-      return MavenPackageManager.doesItExist(args)
-    default:      
-      throw new Error('Package manager not supported');
+      packageManager = MavenPackageManager    
   }  
+
+  if (!packageManager) throw new Error('Package manager not supported');
+
+  return runCheckIsItDeployed({ packageManager, packageName: args.packageName, packageVersion: args.packageVersion }, { maxRetries: 10, secondsBetweenRetries: 5 })
 }
